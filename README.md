@@ -40,7 +40,7 @@ A collection of configuration files to set up a development environment with **Z
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/yourusername/dotfiles.git
+   git clone https://github.com/diyorsattarov7/dotfiles.git
    ```
 2. Symlink the configuration files:
    ```bash
