@@ -13,7 +13,6 @@ A collection of configuration files to set up a development environment with **Z
 
 ### tmux (`.tmux.conf`)
 - Improved colors with `screen-256color`.
-- Prefix key remapped to `Ctrl-a`.
 - Vi-mode navigation.
 - Mouse support enabled.
 - Plugins managed via [TPM](https://github.com/tmux-plugins/tpm):
