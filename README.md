@@ -49,7 +49,7 @@ A collection of configuration files to set up a development environment with **Z
    ln -s $(pwd)/dotfiles/.config/nvim ~/.config/nvim
    ```
 3. Install tmux plugins:
-   - Open tmux and press `Ctrl-a I` to install plugins via TPM.
+   - Open tmux and press `Ctrl-b I` to install plugins via TPM.
 4. Install Neovim plugins:
    ```bash
    nvim +PackerSync
