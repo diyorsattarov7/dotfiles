@@ -1,0 +1,31 @@
+# Ignore swap files, backup files, and other typical Neovim temp files
+*.swp
+*.swo
+*.bak
+*.tmp
+*.swap
+*.un~ 
+*~
+
+# Ignore directories created by Neovim, such as the 'undo', 'swap', and 'backup' directories
+undo/
+swap/
+backup/
+
+# Ignore package managers' directories like Packer's 'start' directory (optional)
+site/pack/packer/start/
+
+# Unignore everything in the nvim config directory
+!/
+
+# Unignore all files in the nvim config directory
+!**/*
+
+# Unignore specific files if needed (example: if you don't want to ignore 'init.lua')
+!init.lua
+!lua/**/*
+plugin/**/*.lua
+
+# Ensure that any logs or other miscellaneous files aren't included (optional)
+log/
+
