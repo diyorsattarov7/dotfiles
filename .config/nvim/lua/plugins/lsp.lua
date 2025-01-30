@@ -1,5 +1,4 @@
 -- plugins/lsp.lua
-
 local cmp = require('cmp')
 local luasnip = require('luasnip')
 local lspconfig = require('lspconfig')
@@ -49,14 +48,39 @@ cmp.setup({
 -- LSP setup for clangd
 lspconfig.clangd.setup({
   on_attach = function(client, bufnr)
-    -- LSP-related keymaps or additional config here
+    -- Enable completion triggered by <c-x><c-o>
+    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+    -- Buffer local mappings
+    local opts = { noremap = true, silent = true, buffer = bufnr }
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
+    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
+    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
   end,
-  flags = {
-    debounce_text_changes = 150,
+  cmd = {
+    "clangd",
+    "--background-index",
+    "--clang-tidy",
+    "--header-insertion=never",
+    "--completion-style=detailed",
+    "--fallback-style=google",
+    "--query-driver=/usr/bin/gcc",
+    "-j=4",
+    "--header-insertion-decorators=0"
   },
-  settings = {
-    clangd = {
-      extraArgs = { "--clang-tidy", "--fallback-style=Google" },
+  init_options = {
+    compilationDatabasePath = "build",
+    fallbackFlags = {
+        "-I/opt/homebrew/opt/nlohmann-json/include",
+        "-I/usr/local/opt/nlohmann-json/include",
+        "-I/opt/homebrew/opt/spdlog/include",
+        "-I/opt/homebrew/opt/fmt/include",
+        "-I/usr/local/opt/spdlog/include",
+        "-I/usr/local/opt/boost/include",
+        "-I/usr/local/include",
+        "-I/usr/include",
+        "-L/usr/local/opt/boost/lib"
     }
   }
 })
@@ -66,4 +90,3 @@ require('mason').setup()
 require('mason-lspconfig').setup({
   ensure_installed = { 'lua_ls', 'clangd', 'rust_analyzer' }
 })
-
