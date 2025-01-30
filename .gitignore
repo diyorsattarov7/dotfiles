@@ -4,6 +4,5 @@
 !.tmux.conf
 !README.md
 
-!.config/
-!.config/nvim/
-!.config/nvim/init.lua
+!/.config/
+!/.config/nvim/
