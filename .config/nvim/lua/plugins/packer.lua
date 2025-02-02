@@ -44,6 +44,13 @@ packer.startup(function(use)
   use 'mfussenegger/nvim-dap'
   use 'nvim-lua/plenary.nvim'
 
+  use {
+      'iamcco/markdown-preview.nvim',
+      run = function() vim.fn['mkdp#util#install']() end,
+      ft = { 'markdown' },
+  }
+
+
   -- Sync packer if bootstrapping
   if is_bootstrap then
     require('packer').sync()

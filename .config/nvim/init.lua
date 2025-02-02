@@ -22,6 +22,7 @@ require('plugins.treesitter')
 require('plugins.gitsigns')
 require('plugins.telescope')
 require('plugins.rust-tools')
+require('plugins.markdown')
 
 -- Sync packer if bootstrapping
 if is_bootstrap then
