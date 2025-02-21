@@ -10,6 +10,7 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
 end
 
 -- Source core settings and keymaps
+require('core.theme')
 require('core.settings')
 require('core.keymaps')
 
