@@ -95,7 +95,12 @@ packer.startup(function(use)
         end
     })
 
-
+    use {
+        'nvim-tree/nvim-tree.lua',
+        requires = {
+            'nvim-tree/nvim-web-devicons', -- optional, for file icons
+        }
+    }
 
     if is_bootstrap then
         require('packer').sync()

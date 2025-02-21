@@ -24,6 +24,7 @@ require('plugins.gitsigns')
 require('plugins.telescope')
 require('plugins.rust-tools')
 require('plugins.markdown')
+require('plugins.nvim-tree')
 
 -- Sync packer if bootstrapping
 if is_bootstrap then
