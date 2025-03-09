@@ -102,6 +102,11 @@ packer.startup(function(use)
         }
     }
 
+    use {
+        'lervag/vimtex',
+        ft = {'tex', 'latex'}
+    }
+
     if is_bootstrap then
         require('packer').sync()
     end

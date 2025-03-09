@@ -17,5 +17,6 @@ export GPG_TTY=$(tty)
 export CPATH="$(brew --prefix)/include:$CPATH"
 export LIBRARY_PATH="$(brew --prefix)/lib:$LIBRARY_PATH"
 export PATH="/Applications/Xcode.app/Contents/Developer/usr/bin:$PATH"
+export PATH="/usr/local/texlive/2024/bin/universal-darwin:$PATH"
 
 neofetch

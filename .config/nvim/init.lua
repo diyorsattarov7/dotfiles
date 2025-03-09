@@ -21,6 +21,7 @@ require('plugins.telescope')
 require('plugins.rust-tools')
 require('plugins.markdown')
 require('plugins.nvim-tree') 
+require('plugins.vimtex')
 
 if is_bootstrap then
   require('packer').sync()
