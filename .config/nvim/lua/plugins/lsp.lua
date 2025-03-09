@@ -3,7 +3,6 @@ local cmp = require('cmp')
 local luasnip = require('luasnip')
 local lspconfig = require('lspconfig')
 
--- Setup nvim-cmp
 cmp.setup({
     snippet = {
         expand = function(args)
@@ -36,10 +35,10 @@ cmp.setup({
         end, { 'i', 's' }),
         ['<C-z>'] = cmp.mapping(function()
             if cmp.visible() then
-                cmp.abort() -- Close the popup if it's still open
+                cmp.abort() 
             end
-            vim.cmd.undo() -- Perform a standard Vim undo
-        end, {'i', 's'}),  -- Apply in insert and select modes
+            vim.cmd.undo() 
+        end, {'i', 's'}),  
     }),
     sources = cmp.config.sources({
         { name = 'nvim_lsp' },
@@ -60,7 +59,6 @@ local function get_brew_include_dirs()
     local dirs = {}
     local handle = io.popen("ls " .. homebrew_prefix .. "/opt")
     for lib in handle:lines() do
-        -- Check if include and lib directories exist before adding
         local include_dir = homebrew_prefix .. "/opt/" .. lib .. "/include"
         local lib_dir = homebrew_prefix .. "/opt/" .. lib .. "/lib"
         if vim.fn.isdirectory(include_dir) == 1 then
@@ -73,25 +71,20 @@ local function get_brew_include_dirs()
     end
     handle:close()
 
-    -- Add macOS SDK paths (Crucial for Objective-C)
     local sdk_path = vim.fn.system({"xcrun", "--show-sdk-path"})
-    sdk_path = string.gsub(sdk_path, "%s+$", "") -- Trim trailing whitespace
+    sdk_path = string.gsub(sdk_path, "%s+$", "") 
 
     if sdk_path ~= "" then
         table.insert(dirs, "-isysroot" .. sdk_path)
-        table.insert(dirs, "-I" .. sdk_path .. "/usr/include")  -- Important for system headers
-        table.insert(dirs, "-F" .. sdk_path .. "/System/Library/Frameworks") -- Add frameworks path
+        table.insert(dirs, "-I" .. sdk_path .. "/usr/include")  
+        table.insert(dirs, "-F" .. sdk_path .. "/System/Library/Frameworks") 
     end
 
     return dirs
 end
 
--- LSP setup for clangd
 lspconfig.clangd.setup({
-    on_attach = function(client, bufnr)
-        -- Enable completion triggered by <c-x><c-o>
-        vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-        -- Buffer local mappings
+    on_attach = function(_, bufnr)
         local opts = { noremap = true, silent = true, buffer = bufnr }
         vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
         vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
@@ -99,22 +92,14 @@ lspconfig.clangd.setup({
         vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
         vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
     end,
-    filetypes = { "c", "cpp", "objc", "objcpp", "m", "mm", "h", "hpp", "cxx" },
     cmd = {
         "clangd",
         "--background-index",
         "--clang-tidy",
-        "--header-insertion=never",
         "--completion-style=detailed",
-        "--fallback-style=google",
-        "--query-driver=/usr/bin/xcrun clang", -- Or your preferred compiler (e.g., /usr/bin/xcrun clang)
-        "-j=4",
-        "--header-insertion-decorators=0"
+        "--header-insertion=never"
     },
-    init_options = {
-        compilationDatabasePath = "build", -- Or wherever your compile_commands.json is
-        fallbackFlags = get_brew_include_dirs()
-    }
+    filetypes = { "c", "cpp", "objc", "objcpp" }
 })
 
 lspconfig.pyright.setup({
@@ -129,8 +114,8 @@ lspconfig.pyright.setup({
     settings = {
         python = {
             analysis = {
-                typeCheckingMode = "strict",  -- Ensures syntax and type checking
-                diagnosticMode = "openFilesOnly",  -- Only check open files
+                typeCheckingMode = "strict",  
+                diagnosticMode = "openFilesOnly",  
                 autoSearchPaths = true,
                 useLibraryCodeForTypes = true,
             }
@@ -138,7 +123,6 @@ lspconfig.pyright.setup({
     }
 })
 
--- LSP setup for JavaScript/TypeScript (ts_ls)
 lspconfig.ts_ls.setup({
     on_attach = function(client, bufnr)
         local opts = { noremap = true, silent = true, buffer = bufnr }
@@ -150,7 +134,6 @@ lspconfig.ts_ls.setup({
     end
 })
 
--- Mason setup
 require('mason').setup()
 require('mason-lspconfig').setup({
     ensure_installed = { 'lua_ls', 'clangd', 'rust_analyzer', 'pyright', 'ts_ls' }
