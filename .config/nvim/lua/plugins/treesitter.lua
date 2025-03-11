@@ -3,8 +3,8 @@
 require('nvim-treesitter.configs').setup({
   ensure_installed = { 
     "lua", "python", "javascript", "typescript", "cpp", "c", 
-    "markdown", "markdown_inline",  -- Markdown support
-    "objc", "cpp", "c",  -- Objective-C support (Treesitter uses "objc" for Objective-C)
+    "markdown", "markdown_inline",  
+    "objc", "cpp", "c",  
   },
   highlight = { enable = true },
 })

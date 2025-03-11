@@ -5,7 +5,6 @@ local rt = require('rust-tools')
 rt.setup({
   server = {
     on_attach = function(client, bufnr)
-      -- Attach configuration for Rust tools
     end,
     settings = {
       ['rust-analyzer'] = {

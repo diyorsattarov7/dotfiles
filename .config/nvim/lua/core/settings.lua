@@ -1,6 +1,5 @@
 -- core/settings.lua
 
--- General settings
 vim.o.expandtab = true
 vim.o.shiftwidth = 4
 vim.o.tabstop = 4
@@ -11,5 +10,4 @@ vim.o.signcolumn = 'yes'
 vim.o.cursorline = true
 
 -- Leader key
-vim.g.mapleader = ' ' -- Set leader key to space
-
+vim.g.mapleader = ' '
