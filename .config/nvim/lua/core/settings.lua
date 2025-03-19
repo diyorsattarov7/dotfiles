@@ -9,5 +9,4 @@ vim.o.relativenumber = true
 vim.o.signcolumn = 'yes'
 vim.o.cursorline = true
 
--- Leader key
 vim.g.mapleader = ' '
