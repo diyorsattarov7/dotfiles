@@ -134,6 +134,54 @@ lspconfig.ts_ls.setup({
     end
 })
 
+lspconfig.texlab.setup({
+    on_attach = function(client, bufnr)
+        local opts = { noremap = true, silent = true, buffer = bufnr }
+        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+        vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+        vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
+        vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
+        vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+        
+        vim.diagnostic.config({
+            virtual_text = true,
+            signs = true,
+            underline = true,
+            update_in_insert = true,
+            severity_sort = true,
+        })
+        
+        vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
+    end,
+    capabilities = require('cmp_nvim_lsp').default_capabilities(),
+    settings = {
+        texlab = {
+            auxDirectory = ".",
+            bibtexFormatter = "texlab",
+            build = {
+                args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "%f" },
+                executable = "latexmk",
+                forwardSearchAfter = false,
+                onSave = false
+            },
+            chktex = {
+                onEdit = true,  
+                onOpenAndSave = true  
+            },
+            diagnosticsDelay = 300,
+            formatterLineLength = 80,
+            forwardSearch = {
+                executable = nil,
+                args = {}
+            },
+            latexFormatter = "latexindent",
+            latexindent = {
+                modifyLineBreaks = false
+            }
+        }
+    }
+})
+
 require('mason').setup()
 require('mason-lspconfig').setup({
     ensure_installed = { 'lua_ls', 'clangd', 'rust_analyzer', 'pyright', 'ts_ls' }
