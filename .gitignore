@@ -1,5 +1,6 @@
 *
 !.gitignore
+!.gitmessage
 !.zshrc
 !.tmux.conf
 !README.md
