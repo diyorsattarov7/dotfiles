@@ -19,11 +19,10 @@ Configuration files for Zsh, tmux, and Neovim development environment.
 ## Install
 ```bash
 git clone https://github.com/diyorsattarov7/dotfiles.git .
-ln -s $(pwd)/.zshrc ~/.zshrc
-ln -s $(pwd)/.tmux.conf ~/.tmux.conf
-ln -s $(pwd)/.config/nvim ~/.config/nvim
-
+source .zshrc
+```
 # Install plugins
+```bash
 tmux # Then press Ctrl-b I
 nvim +PackerSync
 ```
