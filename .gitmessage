@@ -1,0 +1,17 @@
+# Commit Message Template
+#
+# Commit type:
+#   feat:    A new feature
+#   fix:     A bug fix
+#   refactor: Code improvement without changing behavior
+#   build:   Changes to the build system
+#   test:    Adding tests
+#   chore:   Other changes (e.g. formatting)
+#   docs:    Documentation changes
+#
+# Example:
+# feat: add SQLite integration
+#
+# -------------------------------------------
+# Keep the message short and concise
+
