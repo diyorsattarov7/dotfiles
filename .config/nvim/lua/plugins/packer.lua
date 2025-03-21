@@ -46,18 +46,6 @@ packer.startup(function(use)
 
     use({
         'projekt0n/github-nvim-theme',
-        config = function()
-            require('github-theme').setup({
-                options = {
-                    terminal_colors = true,
-                    styles = {
-                        comments = 'italic',
-                        keywords = 'bold',
-                        functions = 'bold',
-                    },
-                }
-            })
-        end
     })
 
     use({
