@@ -48,6 +48,8 @@ packer.startup(function(use)
         'projekt0n/github-nvim-theme',
     })
 
+    use { "ellisonleao/gruvbox.nvim" }
+
     use({
         'mhartington/formatter.nvim',
         config = function()
