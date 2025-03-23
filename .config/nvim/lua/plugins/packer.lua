@@ -59,7 +59,7 @@ packer.startup(function(use)
                         function()
                             return {
                                 exe = "clang-format",
-                                args = { "--assume-filename=.cpp" }, 
+                                args = { "--style=file", "--assume-filename=.cpp" }, 
                                 stdin = true
                             }
                         end
@@ -68,7 +68,7 @@ packer.startup(function(use)
                         function()
                             return {
                                 exe = "clang-format",
-                                args = { "--assume-filename=.hpp" }, 
+                                args = { "--style=file", "--assume-filename=.hpp" }, 
                                 stdin = true
                             }
                         end
