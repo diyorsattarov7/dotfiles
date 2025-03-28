@@ -5,6 +5,6 @@ vim.api.nvim_create_autocmd("FileType", {
     callback = function()
         vim.bo.smartindent = false
         vim.bo.autoindent = false
-        vim.opt.cindent = false
+        vim.opt.cindent = true
     end
 })
