@@ -1,4 +1,12 @@
 -- plugins/lsp.lua
+vim.diagnostic.config({
+    virtual_text = true,
+    signs = true,
+    underline = true,    
+    update_in_insert = true,  
+    severity_sort = true,  
+})
+
 local cmp = require('cmp')
 local luasnip = require('luasnip')
 local lspconfig = require('lspconfig')
@@ -142,7 +150,7 @@ lspconfig.texlab.setup({
         vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
         vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
         vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-        
+
         vim.diagnostic.config({
             virtual_text = true,
             signs = true,
@@ -150,7 +158,7 @@ lspconfig.texlab.setup({
             update_in_insert = true,
             severity_sort = true,
         })
-        
+
         vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
     end,
     capabilities = require('cmp_nvim_lsp').default_capabilities(),

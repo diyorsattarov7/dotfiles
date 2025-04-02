@@ -23,6 +23,7 @@ require('plugins.markdown')
 require('plugins.nvim-tree') 
 require('plugins.vimtex')
 require('plugins.cpp')
+require('plugins.lualine')
 
 if is_bootstrap then
   require('packer').sync()
