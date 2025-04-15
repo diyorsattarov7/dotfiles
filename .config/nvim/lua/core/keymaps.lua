@@ -7,6 +7,8 @@ M.setup_basic = function()
     vim.keymap.set("n", "<leader>x", "\"+y")
     vim.keymap.set("v", "<leader>x", "\"+y")
     vim.keymap.set("n", "<leader>d", "x")
+    vim.keymap.set('n', '<C-n>', ':NvimTreeToggle<CR>', { silent = true })
+    vim.keymap.set('n', '<C-f>', ':NvimTreeFocus<CR>', { silent = true })
 end
 
 M.setup_telescope = function()

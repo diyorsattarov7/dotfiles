@@ -8,6 +8,12 @@ packer.startup(function(use)
 
     use { "ellisonleao/gruvbox.nvim" }
     use { "projekt0n/github-nvim-theme" }
+    use {
+        'nvim-tree/nvim-tree.lua',
+        requires = {
+            'nvim-tree/nvim-web-devicons',
+        }
+    }
 
     use {
         'nvim-telescope/telescope.nvim',
