@@ -7,6 +7,7 @@ telescope.setup {
         file_sorter = require('telescope.sorters').get_fuzzy_file,
         file_previewer = require('telescope.previewers').vim_buffer_cat.new,
         grep_previewer = require('telescope.previewers').vim_buffer_qflist.new,
+        qflist_previewer = reequire('telescope.previewers').vim.buffer_qflist.new,
     },
     pickers = {
         find_files = {
