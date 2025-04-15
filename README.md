@@ -9,7 +9,7 @@
 ## 2. Install Required Packages
 
 ```bash
-brew install gnupg git
+brew install gnupg git tmux neovim
 ```
 
 ## 3. Set Up GnuPG
@@ -40,15 +40,7 @@ git config --global user.signingkey KEY_ID
 git config --global commit.gpgsign true
 ```
 
-## 4. Add Public GPG Key to GitHub
-
-Export your GPG public key:
-
-```bash
-gpg --armor --export KEY_ID
-```
-
-## 5. Set Up SSH Key
+## 4. Set Up SSH Key
 
 Generate a new SSH key:
 
@@ -80,44 +72,9 @@ Test your GitHub SSH connection:
 ssh -T git@github.com
 ```
 
-## 6. Initialize Dotfiles Repository
+## 5. Customize `.zshrc`
 
-Initialize Git:
-
-```bash
-git init
-```
-
-Create a `.gitignore` file:
-
-```bash
-touch .gitignore
-```
-
-Add and commit:
-
-```bash
-git add .gitignore
-git commit -m "feat: Create .gitignore"
-```
-
-Add remote origin:
-
-```bash
-git remote add origin git@github.com:yourusername/dotfiles.git
-```
-
-Push to GitHub:
-
-```bash
-git push origin master
-```
-
-## 7. Customize `.zshrc`
-
-Add the following to `.zshrc`:
-
-```bash
+```zsh
 autoload -U colors && colors
 autoload -Uz vcs_info
 precmd() { vcs_info }
@@ -131,35 +88,15 @@ alias ls='ls -G'
 alias ll='ls -la'
 ```
 
-## 8. `.gitignore` Rules
+## 6. Install and Configure `tmux`
 
-Ignore all files, but unignore `.gitignore` and `.zshrc`:
-
-```gitignore
-*
-!.gitignore
-!.zshrc
-```
-
-## 9. Install and Configure `tmux`
-
-### Install `tmux`
-
-```bash
-brew install tmux
-```
-
-### Install [Tmux Plugin Manager (TPM)](https://github.com/tmux-plugins/tpm)
-
-Clone TPM into your tmux plugins directory:
+### Install TPM (Tmux Plugin Manager)
 
 ```bash
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ```
 
-### Initial `.tmux.conf` Configuration
-
-Create or edit your `~/.tmux.conf` with the following initial configuration:
+### Create `~/.tmux.conf`
 
 ```tmux
 set -g default-terminal "screen-256color"
@@ -182,59 +119,65 @@ bind - split-window -v
 bind-key -T copy-mode-vi 'y' send -X copy-pipe-and-cancel "pbcopy"
 
 set -g @plugin 'tmux-plugins/tpm'
-
-run '~/.tmux/plugins/tpm/tpm'
-```
-
-### Launch `tmux` and Install TPM
-
-Start a new `tmux` session:
-
-```bash
-tmux
-```
-
-Then install TPM plugins by pressing:
-
-```
-Ctrl + b then Shift + I
-```
-
-> This will fetch and install the plugin manager.
-
----
-
-### Add Additional Plugins
-
-Now edit your `.tmux.conf` again and add the following plugins:
-
-```tmux
-set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
 set -g @plugin 'tmux-plugins/tmux-resurrect'
 
 run '~/.tmux/plugins/tpm/tpm'
 ```
 
-Reload the config inside tmux:
+### Start `tmux` and Install Plugins
 
-```
-Ctrl + b then r
+```bash
+tmux
 ```
 
-Install the new plugins:
+Then press:
 
 ```
 Ctrl + b then Shift + I
 ```
 
-### Test tmux-resurrect
+To install TPM plugins.
 
-To test if the environment saving works, try:
+### Save/Restore Session with tmux-resurrect
 
+- Save: `Ctrl + b` then `Ctrl + s`  
+- Restore: `Ctrl + b` then `Ctrl + r`
+
+## 7. Install and Configure Neovim
+
+### Create Config Structure
+
+```bash
+mkdir -p ~/.config/nvim/lua/core
 ```
-Ctrl + b then Ctrl + s
+
+### `~/.config/nvim/lua/core/settings.lua`
+
+```lua
+vim.o.expandtab = true
+vim.o.shiftwidth = 4
+vim.o.tabstop = 4
+vim.o.termguicolors = true
+vim.o.number = true
+vim.o.relativenumber = true
+vim.o.signcolumn = 'yes'
+vim.o.cursorline = true
+vim.g.mapleader = ' '
 ```
 
-> This should save your current tmux environment using `tmux-resurrect`.
+### `~/.config/nvim/lua/core/keymaps.lua`
 
+```lua
+vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
+vim.keymap.set('n', '<leader>x', "\"+y")
+vim.keymap.set('v', '<leader>x', "\"+y")
+vim.keymap.set('n', '<leader>d', 'x')
+```
+
+### `~/.config/nvim/init.lua`
+
+```lua
+require('core.settings')
+require('core.keymaps')
+```
