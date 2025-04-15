@@ -140,3 +140,101 @@ Ignore all files, but unignore `.gitignore` and `.zshrc`:
 !.gitignore
 !.zshrc
 ```
+
+## 9. Install and Configure `tmux`
+
+### Install `tmux`
+
+```bash
+brew install tmux
+```
+
+### Install [Tmux Plugin Manager (TPM)](https://github.com/tmux-plugins/tpm)
+
+Clone TPM into your tmux plugins directory:
+
+```bash
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+```
+
+### Initial `.tmux.conf` Configuration
+
+Create or edit your `~/.tmux.conf` with the following initial configuration:
+
+```tmux
+set -g default-terminal "screen-256color"
+
+set -g prefix C-b
+set -g base-index 1
+setw -g pane-base-index 1
+
+bind r source-file ~/.tmux.conf \; display-message "tmux.conf reloaded."
+
+setw -g mode-keys vi
+set -g mouse on
+
+set-option -g allow-rename off
+set-option -g default-shell /bin/zsh
+set-option -g default-command /bin/zsh
+
+bind | split-window -h
+bind - split-window -v
+bind-key -T copy-mode-vi 'y' send -X copy-pipe-and-cancel "pbcopy"
+
+set -g @plugin 'tmux-plugins/tpm'
+
+run '~/.tmux/plugins/tpm/tpm'
+```
+
+### Launch `tmux` and Install TPM
+
+Start a new `tmux` session:
+
+```bash
+tmux
+```
+
+Then install TPM plugins by pressing:
+
+```
+Ctrl + b then Shift + I
+```
+
+> This will fetch and install the plugin manager.
+
+---
+
+### Add Additional Plugins
+
+Now edit your `.tmux.conf` again and add the following plugins:
+
+```tmux
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+
+run '~/.tmux/plugins/tpm/tpm'
+```
+
+Reload the config inside tmux:
+
+```
+Ctrl + b then r
+```
+
+Install the new plugins:
+
+```
+Ctrl + b then Shift + I
+```
+
+### Test tmux-resurrect
+
+To test if the environment saving works, try:
+
+```
+Ctrl + b then Ctrl + s
+```
+
+> This should save your current tmux environment using `tmux-resurrect`.
+
