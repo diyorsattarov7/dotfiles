@@ -12,3 +12,5 @@ alias ls='ls -G'
 alias ll='ls -la'
 
 export GPG_TTY=$(tty)
+export CPATH="$(brew --prefix)/include:$CPATH"
+export LIBRARY_PATH="$(brew --prefix)/lib:$LIBRARY_PATH"
