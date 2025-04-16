@@ -1,10 +1,15 @@
+-- plugins/lsp.lua
+local lspconfig = require("lspconfig")
+local cmp_nvim_lsp = require("cmp_nvim_lsp")
+local capabilities = cmp_nvim_lsp.default_capabilities()
+
 require("mason").setup()
 require("mason-lspconfig").setup {
     ensure_installed = { "clangd" },
 }
 
-local lspconfig = require("lspconfig")
 lspconfig.clangd.setup({
+    capabilities = capabilities,
     cmd = { "clangd", },
     filetypes = {"c", "cpp" },
     on_attach = function(client, bufnr)
