@@ -9,3 +9,8 @@ vim.o.relativenumber = true
 vim.o.signcolumn = 'yes'
 vim.o.cursorline = true
 vim.g.mapleader = ' '
+
+vim.opt.cindent = true
+vim.opt.cinoptions = {
+    "g0",
+}
