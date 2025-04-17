@@ -13,9 +13,11 @@ packer.startup(function(use)
     use 'nvim-lualine/lualine.nvim'
     use 'nvim-telescope/telescope.nvim'
     
+    use 'nvim-treesitter/nvim-treesitter'
+    
     use 'williamboman/mason.nvim'
     use 'neovim/nvim-lspconfig'
-    use 'williamboman/mason-lspconfig.nvim'
+    use 'williamboman/mason-lspconfig.nvim' 
     
     use 'hrsh7th/nvim-cmp'
     use 'hrsh7th/cmp-nvim-lsp'
@@ -23,4 +25,12 @@ packer.startup(function(use)
     use 'hrsh7th/cmp-path'
     use 'hrsh7th/cmp-cmdline'
     use 'L3MON4D3/LuaSnip'
+    use 'saadparwaiz1/cmp_luasnip'
+
+    use 'iamcco/markdown-preview.nvim'
+    use 'lervag/vimtex'
+
+    if is_bootstrap then
+        require('packer').sync()
+    end
 end)
