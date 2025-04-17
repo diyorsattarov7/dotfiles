@@ -2,45 +2,25 @@
 local packer = require('packer')
 packer.startup(function(use)
     use 'wbthomason/packer.nvim'
-    if is_bootstrap then
-        require('packer').sync()
-    end
-
-    use { "ellisonleao/gruvbox.nvim" }
-    use { "projekt0n/github-nvim-theme" }
-    use {
-        "nvim-tree/nvim-tree.lua",
-        requires = {
-            "nvim-tree/nvim-web-devicons",
-        }
-    }
-
-    use {
-        "nvim-lualine/lualine.nvim",
-        requires = { "nvim-tree/nvim-web-devicons", opt = true }
-    }
-
-    use {
-        "nvim-telescope/telescope.nvim",
-        requires = { "nvim-lua/plenary.nvim" }
-    }
-
-    use { "williamboman/mason.nvim" }
-    use {
-        "williamboman/mason-lspconfig.nvim",
-        requires = { "neovim/nvim-lspconfig" }
-    }
-    use {
-        "hrsh7th/nvim-cmp",
-        requires = {
-            "hrsh7th/cmp-nvim-lsp",
-            "hrsh7th/cmp-buffer",
-            "hrsh7th/cmp-path",
-            "hrsh7th/cmp-cmdline",
-            "saadparwaiz1/cmp_luasnip",
-            "L3MON4D3/LuaSnip",
-            "rafamadriz/friendly-snippets",
-        }
-    }
-
+    
+    use 'nvim-tree/nvim-web-devicons'
+    use 'nvim-lua/plenary.nvim'
+    
+    use 'ellisonleao/gruvbox.nvim'
+    use 'projekt0n/github-nvim-theme'
+    
+    use 'nvim-tree/nvim-tree.lua'
+    use 'nvim-lualine/lualine.nvim'
+    use 'nvim-telescope/telescope.nvim'
+    
+    use 'williamboman/mason.nvim'
+    use 'neovim/nvim-lspconfig'
+    use 'williamboman/mason-lspconfig.nvim'
+    
+    use 'hrsh7th/nvim-cmp'
+    use 'hrsh7th/cmp-nvim-lsp'
+    use 'hrsh7th/cmp-buffer'
+    use 'hrsh7th/cmp-path'
+    use 'hrsh7th/cmp-cmdline'
+    use 'L3MON4D3/LuaSnip'
 end)
