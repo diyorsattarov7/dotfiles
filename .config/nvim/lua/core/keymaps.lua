@@ -9,6 +9,9 @@ M.setup_basic = function()
     vim.keymap.set("n", "<leader>d", "x")
     vim.keymap.set('n', '<C-n>', ':NvimTreeToggle<CR>', { silent = true })
     vim.keymap.set('n', '<C-f>', ':NvimTreeFocus<CR>', { silent = true })
+    vim.keymap.set("n", "<leader>e", function()
+        vim.diagnostic.open_float(nil, { focus = false, border = "rounded" })
+    end, { desc = "Show diagnostic message" })
 end
 
 M.setup_telescope = function()
