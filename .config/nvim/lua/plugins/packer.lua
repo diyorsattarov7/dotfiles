@@ -29,7 +29,7 @@ packer.startup(function(use)
 
     use 'iamcco/markdown-preview.nvim'
     use 'lervag/vimtex'
-
+    use 'numToStr/Comment.nvim'
     if is_bootstrap then
         require('packer').sync()
     end
