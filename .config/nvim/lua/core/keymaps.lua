@@ -12,6 +12,10 @@ M.setup_basic = function()
     vim.keymap.set("n", "<leader>e", function()
         vim.diagnostic.open_float(nil, { focus = false, border = "rounded" })
     end, { desc = "Show diagnostic message" })
+    vim.keymap.set("n", "<leader>fc", function()
+        vim.cmd("set filetype=cpp")
+        print("Filetype set to C++")
+    end, { desc = "Set filetype to C++" })
 end
 
 M.setup_telescope = function()
