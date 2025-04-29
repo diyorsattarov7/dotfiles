@@ -24,6 +24,16 @@ lspconfig.clangd.setup({
     end,
 })
 
+lspconfig.sourcekit.setup({
+    capabilities = {
+        workspace = {
+            didChangeWatchedFiles = {
+                dynamicRegistration = true,
+            },
+        },
+    },
+})
+
 vim.diagnostic.config({
     virtual_text = {
         prefix = "●", 
