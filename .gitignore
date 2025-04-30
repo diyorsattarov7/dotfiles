@@ -6,3 +6,5 @@
 !README.md
 !/.config/
 !/.config/nvim/
+!/.scripts/
+!/.scripts/**
