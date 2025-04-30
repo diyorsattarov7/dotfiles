@@ -43,6 +43,14 @@ ls.add_snippets("tex", {
         t("\\textit{"),
         i(1, "text"),
         t("}")
+    }),
+
+    s("frac", {
+        t("\\frac{"),
+        i(1, "num"),
+        t("}{"),
+        i(2, "den"),
+        t("}")
     })
 
 })
