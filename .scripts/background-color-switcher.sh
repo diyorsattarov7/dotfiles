@@ -1,10 +1,13 @@
 #!/bin/bash
-ENABLE_LOGGING=false
+
+ENABLE_LOGGING=true
 LOG_FILE="$HOME/.background-color-switcher.log"
+
+touch "$LOG_FILE"
 
 get_appearance() {
     appearance=$(defaults read -g AppleInterfaceStyle 2>/dev/null)
-    if [[ $appearance == "Dark" ]]; then
+    if [[ $? -eq 0 && $appearance == "Dark" ]]; then
         echo "dark"
     else
         echo "light"
@@ -21,11 +24,9 @@ set_background_color() {
     appearance=$(get_appearance)
     
     if [[ $appearance == "dark" ]]; then
-        
         solid_color_path="/System/Library/Desktop Pictures/Solid Colors/Black.png"
         log_message "Changed to black background (dark mode)"
     else
-        
         solid_color_path="/System/Library/Desktop Pictures/Solid Colors/Silver.png"
         log_message "Changed to silver background (light mode)"
     fi
@@ -52,9 +53,12 @@ monitor_appearance() {
             last_appearance=$current_appearance
         fi
         
-        sleep 5
+        sleep 2  
     done
 }
+
+current_mode=$(get_appearance)
+log_message "Script started. Current appearance mode: $current_mode"
 
 set_background_color
 
