@@ -1,8 +1,6 @@
 #!/bin/bash
-
 ENABLE_LOGGING=true
 LOG_FILE="$HOME/.background-color-switcher.log"
-
 touch "$LOG_FILE"
 
 get_appearance() {
@@ -62,9 +60,10 @@ log_message "Script started. Current appearance mode: $current_mode"
 
 set_background_color
 
-if [[ "$1" == "--monitor" ]]; then
-    log_message "Starting appearance mode monitor..."
-    monitor_appearance
+if [[ "$1" == "--once" ]]; then
+    echo "Background color set once. Script exiting."
+    log_message "Script executed once and exiting."
 else
-    echo "Background color set. Use --monitor flag to continuously monitor for changes."
+    log_message "Starting continuous appearance monitoring..."
+    monitor_appearance
 fi
