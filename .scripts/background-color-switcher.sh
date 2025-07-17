@@ -29,13 +29,16 @@ set_background_color() {
         log_message "Changed to silver background (light mode)"
     fi
         
-    osascript <<EOF
-    tell application "System Events"
-        tell every desktop
-            set picture to "$solid_color_path"
-        end tell
+osascript <<EOF
+tell application "System Events"
+    tell every desktop
+        set picture to "$solid_color_path"
     end tell
+end tell
 EOF
+
+killall Dock
+
 }
 
 monitor_appearance() {
