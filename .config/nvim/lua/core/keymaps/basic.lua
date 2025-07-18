@@ -11,6 +11,8 @@ function M.setup()
         vim.cmd("set filetype=cpp")
         print("Filetype set to C++")
     end, { desc = "Set Filetype to C++" })
+    vim.keymap.set("n", "<leader>t", vim.cmd.terminal, { desc = "Open Terminal" })
+    vim.keymap.set("t", "<C-q>", [[<C-\><C-n>:bd!<CR>]], { desc = "Force quit terminal" })
 end
 
 return M
