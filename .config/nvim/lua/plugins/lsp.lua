@@ -32,6 +32,7 @@ lspconfig.sourcekit.setup({
             },
         },
     },
+    filetypes = { "swift", "m", "mm" },
 })
 
 vim.diagnostic.config({
