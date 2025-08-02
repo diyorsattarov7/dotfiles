@@ -14,6 +14,12 @@ require("plugins.luasnip.texsnips")
 local cmp_status_ok, cmp = pcall(require, "cmp")
 if cmp_status_ok then
     cmp.setup({
+        mapping = {
+            ["<CR>"] = cmp.mapping.confirm({
+                behavior = cmp.ConfirmBehavior.Insert,
+                select = false,
+            }),
+        },
         snippet = {
             expand = function(args)
                 luasnip.lsp_expand(args.body)
