@@ -8,3 +8,7 @@
 !/.config/nvim/
 !/.scripts/
 !/.scripts/**
+!/.plists/
+!/.plists/**
+!/.docs/
+!/.docs/**
