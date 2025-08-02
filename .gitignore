@@ -10,5 +10,8 @@
 !/.scripts/**
 !/.plists/
 !/.plists/**
+<<<<<<< HEAD
 !/.docs/
 !/.docs/**
+=======
+>>>>>>> fc970ff (fix: background color switcher not executing with locked screen)
