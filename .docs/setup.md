@@ -155,6 +155,8 @@ mkdir -p ~/.config/nvim/lua/core
 ### `~/.config/nvim/lua/core/settings.lua`
 
 ```lua
+-- core/settings.lua
+
 vim.o.expandtab = true
 vim.o.shiftwidth = 4
 vim.o.tabstop = 4
@@ -164,22 +166,59 @@ vim.o.relativenumber = true
 vim.o.signcolumn = 'yes'
 vim.o.cursorline = true
 vim.g.mapleader = ' '
+
+vim.opt.cindent = true
+vim.opt.cinoptions = {
+    "g0",
+}
+
+vim.opt.undofile = true
+vim.opt.undodir = vim.fn.stdpath('data') .. '/undo'
 ```
 
 ### `~/.config/nvim/lua/core/keymaps.lua`
 
 ```lua
-vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
-vim.keymap.set('n', '<leader>x', "\"+y")
-vim.keymap.set('v', '<leader>x', "\"+y")
-vim.keymap.set('n', '<leader>d', 'x')
+-- core/keymaps.lua
+
+local M = {}
+
+function M.setup()
+    require("core.keymaps.basic").setup()
+end
+
+return M
+```
+
+### `~/.config/nvim/lua/core/keymaps/basic.lua`
+
+```lua
+-- core/keymaps/basic.lua
+local M = {}
+
+function M.setup()
+    vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "Explore" })
+    vim.keymap.set({"n", "v"}, "<leader>x", "\"+y", { desc = "Yank to Clipboard" })
+    vim.keymap.set("n", "<leader>d", "x", { desc = "Delete" })
+    vim.keymap.set("n", "<leader>e", function()
+        vim.diagnostic.open_float(nil, { focus = false, border = "rounded" })
+    end, { desc = "Show Diagnostic" })
+    vim.keymap.set("n", "<leader>fc", function()
+        vim.cmd("set filetype=cpp")
+        print("Filetype set to C++")
+    end, { desc = "Set Filetype to C++" })
+    vim.keymap.set("n", "<leader>t", vim.cmd.terminal, { desc = "Open Terminal" })
+    vim.keymap.set("t", "<C-q>", [[<C-\><C-n>:bd!<CR>]], { desc = "Force quit terminal" })
+end
+
+return M
 ```
 
 ### `~/.config/nvim/init.lua`
 
 ```lua
 require('core.settings')
-require('core.keymaps')
+require('core.keymaps').setup()
 ```
 
 ## 8. Install and Configure Packer (Neovim Package Manager)
