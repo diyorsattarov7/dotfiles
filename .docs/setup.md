@@ -149,13 +149,13 @@ To install TPM plugins.
 ### Create Config Structure
 
 ```bash
-mkdir -p ~/.config/nvim/lua/core
+mkdir -p ~/.config/nvim/lua/config/
 ```
 
-### `~/.config/nvim/lua/core/settings.lua`
+### `~/.config/nvim/lua/config/options.lua`
 
 ```lua
--- core/settings.lua
+-- lua/config/options.lua
 
 vim.o.expandtab = true
 vim.o.shiftwidth = 4
@@ -163,60 +163,62 @@ vim.o.tabstop = 4
 vim.o.termguicolors = true
 vim.o.number = true
 vim.o.relativenumber = true
-vim.o.signcolumn = 'yes'
+vim.o.signcolumn = "yes"
 vim.o.cursorline = true
-vim.g.mapleader = ' '
 
 vim.opt.cindent = true
-vim.opt.cinoptions = {
-    "g0",
-}
+vim.opt.cinoptions = { "g0" }
 
 vim.opt.undofile = true
 vim.opt.undodir = vim.fn.stdpath('data') .. '/undo'
 ```
 
-### `~/.config/nvim/lua/core/keymaps.lua`
+### `~/.config/nvim/lua/config/keymaps.lua`
 
 ```lua
--- core/keymaps.lua
+-- lua/config/keymaps.lua
 
-local M = {}
+local map = vim.keymap.set
 
-function M.setup()
-    require("core.keymaps.basic").setup()
-end
+map("n", "<leader>pv", vim.cmd.Ex, { desc = "Explore" })
+map({ "n", "v" }, "<leader>x", '"+y', { desc = "Yank to Clipboard" })
+map("n", "<leader>d", "x", { desc = "Delete char" })
 
-return M
-```
-
-### `~/.config/nvim/lua/core/keymaps/basic.lua`
-
-```lua
--- core/keymaps/basic.lua
-local M = {}
-
-function M.setup()
-    vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "Explore" })
-    vim.keymap.set({"n", "v"}, "<leader>x", "\"+y", { desc = "Yank to Clipboard" })
-    vim.keymap.set("n", "<leader>d", "x", { desc = "Delete" })
-    vim.keymap.set("n", "<leader>e", function()
-        vim.diagnostic.open_float(nil, { focus = false, border = "rounded" })
-    end, { desc = "Show Diagnostic" })
-    vim.keymap.set("n", "<leader>fc", function()
-        vim.cmd("set filetype=cpp")
-        print("Filetype set to C++")
-    end, { desc = "Set Filetype to C++" })
-    vim.keymap.set("n", "<leader>t", vim.cmd.terminal, { desc = "Open Terminal" })
-    vim.keymap.set("t", "<C-q>", [[<C-\><C-n>:bd!<CR>]], { desc = "Force quit terminal" })
-end
-
-return M
+map("n", "<leader>fc", function()
+  vim.cmd("set filetype=cpp")
+  vim.notify("Filetype set to C++", vim.log.levels.INFO)
+end, { desc = "Set Filetype to C++" })
 ```
 
 ### `~/.config/nvim/init.lua`
 
 ```lua
-require('core.settings')
-require('core.keymaps').setup()
+-- init.lua
+
+vim.g.mapleader = " "
+vim.g.maplocalleader = ","
+
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable",
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
+
+require("lazy").setup({
+  { "LazyVim/LazyVim", import = "lazyvim.plugins" },
+  { import = "plugins" },
+}, {
+  ui = { border = "rounded" },
+  change_detection = { notify = false },
+})
+
+require("config.options")
+require("config.keymaps")
 ```
