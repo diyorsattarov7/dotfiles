@@ -26,16 +26,6 @@ local function set_theme()
             }
         })
         vim.cmd("colorscheme " .. theme)
-    elseif selected_theme == "gruvbox" then
-        vim.g.gruvbox_contrast_dark = "medium"
-        vim.g.gruvbox_contrast_light = "medium"
-        vim.g.gruvbox_italic = 1
-        vim.g.gruvbox_bold = 1
-        vim.g.gruvbox_improved_strings = 1
-
-        local theme = dark_mode and "gruvbox" or "gruvbox"
-        vim.o.background = dark_mode and "dark" or "light"
-        vim.cmd("colorscheme " ..theme)
     else
         vim.cmd("colorscheme default")
     end
@@ -43,4 +33,4 @@ end
 
 set_theme()
 
-vim.api.nvim_create_autocmd({ "FocusGained" }, { callback = set_theme, })
+vim.api.nvim_create_autocmd({ "FocusGained" }, { callback = set_theme })
