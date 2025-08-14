@@ -220,33 +220,3 @@ return M
 require('core.settings')
 require('core.keymaps').setup()
 ```
-
-## 8. Install and Configure Packer (Neovim Package Manager)
-
-### Clone Packer Repository
-
-```bash
-git clone --depth 1 [https://github.com/wbthomason/packer.nvim](https://github.com/wbthomason/packer.nvim) ~/.local/share/nvim/site/pack/packer/start/packer.nvim
-```
-
-### Add Packer Configuration
-
-### Install Plugins
-
-1.  Open Neovim:
-
-    ```bash
-    nvim
-    ```
-
-2.  Run the `:source` command on your Packer configuration file (typically `packer.lua` if you created one separately, or your `init.lua` if you added the Packer configuration there):
-
-    ```vim
-    :so
-    ```
-
-3.  Run the `:PackerSync` command to install the plugins listed in your Packer configuration:
-
-    ```vim
-    :PackerSync
-    ```
