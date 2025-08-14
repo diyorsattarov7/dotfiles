@@ -14,3 +14,6 @@ o.cursorline = true
 
 opt.cindent = true
 opt.cinoptions = { "g0" }
+
+vim.opt.undofile = true
+vim.opt.undodir = vim.fn.stdpath("data") .. "/undo"
