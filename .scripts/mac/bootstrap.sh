@@ -68,7 +68,8 @@ git config --global commit.gpgsign true
 SSH_KEY="$HOME/.ssh/id_ed25519"
 if [ ! -f "$SSH_KEY" ]; then
     echo "Generating SSH key..."
-    ssh-keygen -t ed25519 -C "youremail@example.com"
+    read -rp "Enter your email for the SSH key: " SSH_EMAIL
+    ssh-keygen -t ed25519 -C "$SSH_EMAIL"
     eval "$(ssh-agent -s)"
     ssh-add "$SSH_KEY"
     echo "📋 Public key (add to GitHub):"
