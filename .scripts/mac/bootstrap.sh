@@ -60,7 +60,8 @@ echo "📜 Your secret keys:"
 gpg --list-secret-keys --keyid-format=long
 
 echo "⚠️  Copy the KEY_ID from above."
-read -rp "Paste your KEY_ID here: " KEY_ID
+read "KEY_ID?Paste your KEY_ID here: "
+
 git config --global user.signingkey "$KEY_ID"
 git config --global commit.gpgsign true
 
