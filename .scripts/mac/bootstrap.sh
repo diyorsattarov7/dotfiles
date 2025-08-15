@@ -22,7 +22,7 @@ echo "Creating symlinks..."
 mkdir -p "$HOME/.config"
 ln -sf "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
 ln -sf "$DOTFILES_DIR/.tmux.conf" "$HOME/.tmux.conf"
-ln -sf "$DOTFILES_DIR/config/nvim" "$HOME/.config/nvim"
+ln -sf "$DOTFILES_DIR/config/nvim" "$HOME/.config/"
 
 if ! command -v brew >/dev/null 2>&1; then
     echo "Installing Homebrew..."
