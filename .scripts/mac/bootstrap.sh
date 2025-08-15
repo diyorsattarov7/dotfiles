@@ -1,6 +1,19 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+if ! command -v zsh >/dev/null 2>&1; then
+    brew install zsh
+    chsh -s "$(which zsh)"
+fi
+
+if [ -z "${BOOTSTRAP_IN_ZSH:-}" ]; then
+    echo "🔄 Switching to zsh..."
+    BOOTSTRAP_IN_ZSH=1 exec zsh "$0" "$@"
+fi
+
+echo "✅ Now running in zsh"
+echo "ZSH version: $ZSH_VERSION"
+
 DOTFILES_DIR="$HOME/dotfiles"
 
 echo "🚀 Starting macOS bootstrap..."
