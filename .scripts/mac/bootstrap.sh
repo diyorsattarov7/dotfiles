@@ -59,16 +59,31 @@ gpg --full-generate-key
 echo "📜 Your secret keys:"
 gpg --list-secret-keys --keyid-format=long
 
-echo "⚠️  Copy the KEY_ID from above."
-read "KEY_ID?Paste your KEY_ID here: "
+echo -n "⚠️  Paste your KEY_ID here: "
+read KEY_ID
 
 git config --global user.signingkey "$KEY_ID"
 git config --global commit.gpgsign true
 
+echo -n "Enter your Git username: "
+read GIT_USER
+echo -n "Enter your Git email: "
+read GIT_EMAIL
+git config --global user.name "$GIT_USER"
+git config --global user.email "$GIT_EMAIL"
+
+echo "📤 Exporting your GPG public key for GitHub..."
+gpg --armor --export "$KEY_ID" >"$HOME/gpg_key.pub"
+echo "✅ GPG public key saved to $HOME/gpg_key.pub"
+echo "📋 Public GPG key (add this to GitHub GPG keys):"
+cat "$HOME/gpg_key.pub"
+echo
+
 SSH_KEY="$HOME/.ssh/id_ed25519"
 if [ ! -f "$SSH_KEY" ]; then
     echo "Generating SSH key..."
-    read -rp "Enter your email for the SSH key: " SSH_EMAIL
+    echo -n "Enter your email for the SSH key: "
+    read SSH_EMAIL
     ssh-keygen -t ed25519 -C "$SSH_EMAIL"
     eval "$(ssh-agent -s)"
     ssh-add "$SSH_KEY"
