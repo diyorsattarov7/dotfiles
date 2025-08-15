@@ -5,21 +5,34 @@ DOTFILES_DIR="$HOME/dotfiles"
 
 echo "🚀 Starting macOS bootstrap..."
 
-if ! command -v brew >/dev/null 2>&1; then
-    echo "❌ Homebrew is not installed. Please install it first:"
-    echo '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
-    exit 1
-fi
-
 echo "Creating symlinks..."
 mkdir -p "$HOME/.config"
 ln -sf "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
 ln -sf "$DOTFILES_DIR/.tmux.conf" "$HOME/.tmux.conf"
 ln -sf "$DOTFILES_DIR/config/nvim" "$HOME/.config/nvim"
-source "$HOME/.zshrc"
+
+if ! command -v brew >/dev/null 2>&1; then
+    echo "Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+    if [ -d "/opt/homebrew/bin" ]; then
+        echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >>"$HOME/.zshrc"
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    fi
+else
+    echo "✅ Homebrew already installed"
+fi
 
 echo "Installing required packages..."
 brew install gnupg git tmux neovim
+
+if [ "$SHELL" != "$(which zsh)" ]; then
+    echo "Changing default shell to zsh..."
+    chsh -s "$(which zsh)"
+    echo "✅ Default shell changed to zsh — you may need to log out and back in."
+else
+    echo "✅ Default shell already zsh"
+fi
 
 if ! grep -q "GPG_TTY" "$HOME/.zshrc" 2>/dev/null; then
     echo "Adding GPG_TTY to ~/.zshrc..."
