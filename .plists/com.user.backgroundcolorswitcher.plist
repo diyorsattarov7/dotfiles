@@ -8,7 +8,7 @@
     <key>ProgramArguments</key>
     <array>
         <string>/bin/bash</string>
-        <string>/Users/diyorsattarov/.scripts/background-color-switcher.sh</string>
+        <string>/Users/diyorsattarov/.scripts/mac/background-color-switcher.sh</string>
         <string>--monitor</string>
     </array>
 
