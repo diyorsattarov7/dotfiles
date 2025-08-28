@@ -1,9 +1,27 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if ! command -v zsh >/dev/null 2>&1; then
-    brew install zsh
+if ! command -v brew >/dev/null 2>&1; then
+    echo "Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+    if [ -d "/opt/homebrew/bin" ]; then
+        echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >>"$HOME/.zshrc"
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    fi
+else
+    echo "✅ Homebrew already installed"
+fi
+
+echo "Installing required packages..."
+brew install zsh gnupg git tmux neovim
+
+if [ "$SHELL" != "$(which zsh)" ]; then
+    echo "Changing default shell to zsh..."
     chsh -s "$(which zsh)"
+    echo "✅ Default shell changed to zsh — you may need to log out and back in."
+else
+    echo "✅ Default shell already zsh"
 fi
 
 if [ -z "${BOOTSTRAP_IN_ZSH:-}" ]; then
@@ -23,29 +41,6 @@ mkdir -p "$HOME/.config"
 ln -sf "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
 ln -sf "$DOTFILES_DIR/.tmux.conf" "$HOME/.tmux.conf"
 ln -sf "$DOTFILES_DIR/config/nvim" "$HOME/.config/"
-
-if ! command -v brew >/dev/null 2>&1; then
-    echo "Installing Homebrew..."
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-    if [ -d "/opt/homebrew/bin" ]; then
-        echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >>"$HOME/.zshrc"
-        eval "$(/opt/homebrew/bin/brew shellenv)"
-    fi
-else
-    echo "✅ Homebrew already installed"
-fi
-
-echo "Installing required packages..."
-brew install gnupg git tmux neovim
-
-if [ "$SHELL" != "$(which zsh)" ]; then
-    echo "Changing default shell to zsh..."
-    chsh -s "$(which zsh)"
-    echo "✅ Default shell changed to zsh — you may need to log out and back in."
-else
-    echo "✅ Default shell already zsh"
-fi
 
 if ! grep -q "GPG_TTY" "$HOME/.zshrc" 2>/dev/null; then
     echo "Adding GPG_TTY to ~/.zshrc..."
@@ -75,7 +70,6 @@ git config --global user.email "$GIT_EMAIL"
 echo "📤 Exporting your GPG public key for GitHub..."
 gpg --armor --export "$KEY_ID" >"$HOME/gpg_key.pub"
 echo "✅ GPG public key saved to $HOME/gpg_key.pub"
-echo "📋 Public GPG key (add this to GitHub GPG keys):"
 cat "$HOME/gpg_key.pub"
 echo
 
@@ -100,7 +94,6 @@ if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
     echo "Installing tmux plugin manager..."
     git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
 fi
-
 echo "To install tmux plugins: start tmux, then press Ctrl+b Shift+I"
 
 PACKER_DIR="$HOME/.local/share/nvim/site/pack/packer/start/packer.nvim"
@@ -110,7 +103,7 @@ if [ ! -d "$PACKER_DIR" ]; then
 else
     echo "✅ packer.nvim already installed"
 fi
-
 echo "To finalize Neovim setup, open nvim and run :PackerSync"
 
 echo "✅ Bootstrap complete!"
+
