@@ -103,4 +103,14 @@ fi
 
 echo "To install tmux plugins: start tmux, then press Ctrl+b Shift+I"
 
+PACKER_DIR="$HOME/.local/share/nvim/site/pack/packer/start/packer.nvim"
+if [ ! -d "$PACKER_DIR" ]; then
+    echo "Installing packer.nvim..."
+    git clone --depth 1 https://github.com/wbthomason/packer.nvim "$PACKER_DIR"
+else
+    echo "✅ packer.nvim already installed"
+fi
+
+echo "To finalize Neovim setup, open nvim and run :PackerSync"
+
 echo "✅ Bootstrap complete!"
