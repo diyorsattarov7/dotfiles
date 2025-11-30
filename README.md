@@ -13,5 +13,5 @@ Personal dotfiles and configuration for development on macOS.
 
 ## Quick Start
 ```bash
-git clone https://github.com/diyorsattarov7/dotfiles.git .
+git clone https://github.com/diyorsattarov7/dotfiles.git
 ````
