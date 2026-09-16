@@ -17,3 +17,5 @@ vim.opt.cinoptions = {
 
 vim.opt.undofile = true
 vim.opt.undodir = vim.fn.stdpath('data') .. '/undo'
+
+vim.g.startup_dir = vim.fn.getcwd()

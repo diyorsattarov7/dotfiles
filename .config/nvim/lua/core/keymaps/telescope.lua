@@ -5,7 +5,11 @@ function M.setup()
     if not ok then return end
     local builtin = require('telescope.builtin')
 
-    vim.keymap.set('n', '<leader>pf', builtin.find_files, { desc = "[P]ath [F]ind Files" })
+    vim.keymap.set('n', '<leader>pf', function()
+        builtin.find_files ({
+            cwd = vim.g.startup_dir,
+        })
+        end, { desc = "[P]ath [F]ind Files" })
     vim.keymap.set('n', '<C-p>', builtin.git_files, { desc = "Git [F]iles" })
     vim.keymap.set('n', '<leader>ps', function()
         builtin.grep_string({ search = vim.fn.input("Grep > ") })
