@@ -1,15 +1,58 @@
 -- plugins/lsp.lua
-local lspconfig = require("lspconfig")
 local cmp_nvim_lsp = require("cmp_nvim_lsp")
 local capabilities = cmp_nvim_lsp.default_capabilities()
 
 require("mason").setup()
 require("mason-lspconfig").setup {
-    ensure_installed = { "clangd" },
+    ensure_installed = { "clangd", "ts_ls", "cssls", "somesass_ls", "lua_ls" },
 }
 
-lspconfig.clangd.setup({
-    capabilities = capabilities,
+vim.lsp.config("*", { capabilities = capabilities })
+
+vim.lsp.config.lua_ls = {
+    filetypes = { "lua" },
+    settings = {
+        Lua = {
+            diagnostics = {
+                globals = { "vim" },
+            },
+            workspace = {
+                library = vim.api.nvim_get_runtime_file("", true),
+                checkThirdParty = false,
+            },
+            telemetry = { enable = false },
+        },
+    },
+}
+
+vim.lsp.config.cssls = {
+    filetypes = { "css", "scss", "less" },
+    settings = {
+        scss = { validate = true },
+        css = { validate = true },
+    },
+}
+
+vim.lsp.config.somesass_ls = {
+    filetypes = { "sass", "scss", "less", "css" },
+    settigns = {
+        somesass = {
+            includePaths = {},
+            suggestFromUseOnly = false,
+        },
+    },
+}
+
+vim.lsp.config.ts_ls = {
+    filetypes = {
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+    },
+}
+
+vim.lsp.config.clangd = {
     cmd = { "clangd", },
     filetypes = {"c", "cpp" },
     on_attach = function(client, bufnr)
@@ -22,9 +65,9 @@ lspconfig.clangd.setup({
             })
         end
     end,
-})
+}
 
-lspconfig.sourcekit.setup({
+vim.lsp.config.sourcekit = {
     capabilities = {
         workspace = {
             didChangeWatchedFiles = {
@@ -33,11 +76,13 @@ lspconfig.sourcekit.setup({
         },
     },
     filetypes = { "swift", "m", "mm" },
-})
+}
+
+vim.lsp.enable({ "ts_ls", "clangd", "sourcekit", "cssls", "somesass_ls", "lua_ls" })
 
 vim.diagnostic.config({
     virtual_text = {
-        prefix = "●", 
+        prefix = "●",
         spacing = 2,
     },
     signs = true,
