@@ -21,3 +21,6 @@ site/pack/packer/start
 plugin/**/*.lua
 
 log/
+
+lazy-lock.json
+lazyvim.json

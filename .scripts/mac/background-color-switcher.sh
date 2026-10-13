@@ -2,7 +2,6 @@
 
 ENABLE_LOGGING=true
 LOG_FILE="$HOME/.background-color-switcher.log"
-
 touch "$LOG_FILE"
 
 DESKTOPPR_BIN="/usr/local/bin/desktoppr"
@@ -33,14 +32,6 @@ set_background_color() {
     else
         expected="/System/Library/Desktop Pictures/Solid Colors/Silver.png"
     fi
-        
-    osascript <<EOF
-    tell application "System Events"
-        tell every desktop
-            set picture to "$solid_color_path"
-        end tell
-    end tell
-EOF
 
     local current
     current=$(get_current_background)
@@ -54,11 +45,3 @@ EOF
 }
 
 set_background_color
-
-if [[ "$1" == "--monitor" ]]; then
-    log_message "Starting appearance mode monitor..."
-    monitor_appearance
-else
-    echo "Background color set. Use --monitor flag to continuously monitor for changes."
-fi
-

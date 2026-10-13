@@ -14,3 +14,12 @@ alias ll='ls -la'
 export GPG_TTY=$(tty)
 export CPATH="$(brew --prefix)/include:$CPATH"
 export LIBRARY_PATH="$(brew --prefix)/lib:$LIBRARY_PATH"
+
+bindkey -v
+
+function zle-line-init { zle vi-cmd-mode }
+
+zle -N zle-line-init
+
+bindkey '^?' backward-delete-char
+export KEYTIMEOUT=1

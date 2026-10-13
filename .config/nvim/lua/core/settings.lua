@@ -14,3 +14,8 @@ vim.opt.cindent = true
 vim.opt.cinoptions = {
     "g0",
 }
+
+vim.opt.undofile = true
+vim.opt.undodir = vim.fn.stdpath('data') .. '/undo'
+
+vim.g.startup_dir = vim.fn.getcwd()
