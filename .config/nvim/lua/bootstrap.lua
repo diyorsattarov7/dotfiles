@@ -1,25 +1,20 @@
 -- bootstrap.lua
-local M = {}
 
-M.ensure_packer = function()
-    local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/packer.nvim'
-    local is_bootstrap = false
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
-    if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-        is_bootstrap = true
-        vim.fn.system {
-            'git',
-            'clone',
-            '--depth',
-            '1',
-            'https://github.com/wbthomason/packer.nvim',
-            install_path
-        }
-        vim.cmd [[packadd packer.nvim]]
-        print "Installed packer.nvim, please restart Neovim and run :PackerSync"
+if not vim.uv.fs_stat(lazypath) then
+    local result = vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "--branch=stable",
+        "https://github.com/folke/lazy.nvim.git",
+        lazypath,
+    })
+
+    if vim.v.shell_error ~= 0 then
+        error("Failed to install lazy.nvim:\n" .. result)
     end
-
-    return is_bootstrap
 end
 
-return M
+vim.opt.rtp:prepend(lazypath)
