@@ -35,7 +35,7 @@ vim.lsp.config.cssls = {
 
 vim.lsp.config.somesass_ls = {
     filetypes = { "sass", "scss", "less", "css" },
-    settigns = {
+    settings = {
         somesass = {
             includePaths = {},
             suggestFromUseOnly = false,
