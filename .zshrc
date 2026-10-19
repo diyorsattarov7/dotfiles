@@ -23,3 +23,5 @@ zle -N zle-line-init
 
 bindkey '^?' backward-delete-char
 export KEYTIMEOUT=1
+
+neofetch
