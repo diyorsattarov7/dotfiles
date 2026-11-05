@@ -2,11 +2,12 @@ autoload -U colors && colors
 autoload -Uz vcs_info
 precmd() { vcs_info }
 
-zstyle ':vcs_info:git:*' formats ' on %F{cyan}%b%f'
+zstyle ':vcs_info:git:*' formats ' on %F{#A5D6FF}%b%f'
 
 setopt PROMPT_SUBST
-PROMPT='%F{green}%n%f at %F{yellow}%m%f in %F{blue}%~%f${vcs_info_msg_0_}
-%(?.%F{magenta}>%f.%F{red}>%f) '
+
+PROMPT='%F{#7EE787}%n%f at %F{#D2A8FF}%m%f in %F{#79C0FF}%~%f${vcs_info_msg_0_}
+%(?.%F{#7EE787}>%f.%F{#FF7B72}>%f) '
 
 alias ls='ls -G'
 alias ll='ls -la'
@@ -25,8 +26,8 @@ bindkey '^?' backward-delete-char
 export KEYTIMEOUT=1
 
 neofetch
-# The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=(/Users/diyorsattarov/.docker/completions $fpath)
+
+# Docker CLI completions
+fpath=("$HOME/.docker/completions" $fpath)
 autoload -Uz compinit
 (( ${+_comps[docker]} )) || compinit
-# End of Docker CLI completions
