@@ -22,14 +22,33 @@ local function set_theme()
 				terminal_colors = true,
 				styles = {
 					comments = "italic",
-					keywords = "bold",
-					functions = "bold",
+					keywords = "NONE",
+					functions = "NONE",
 				},
 			},
 			palettes = {
 				github_dark_colorblind = {
 					bg0 = dark_background,
 					bg1 = dark_background,
+				},
+			},
+			specs = {
+				github_dark_colorblind = {
+					syntax = {
+						comment = "#8B949E",
+						keyword = "#FF7B72",
+						conditional = "#FF7B72",
+						statement = "#FF7B72",
+						func = "#79C0FF",
+						type = "#D2A8FF",
+						string = "#A5D6FF",
+						number = "#79C0FF",
+						const = "#79C0FF",
+						preproc = "#FF7B72",
+						variable = "#C9D1D9",
+						field = "#C9D1D9",
+						operator = "#FF7B72",
+					},
 				},
 			},
 			groups = {
