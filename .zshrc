@@ -6,8 +6,8 @@ zstyle ':vcs_info:git:*' formats ' on %F{#A5D6FF}%b%f'
 
 setopt PROMPT_SUBST
 
-PROMPT='%F{#7EE787}%n%f at %F{#D2A8FF}%m%f in %F{#79C0FF}%~%f${vcs_info_msg_0_}
-%(?.%F{#7EE787}>%f.%F{#FF7B72}>%f) '
+PROMPT='%F{#F0883E}%n%f at %F{#D2A8FF}%m%f in %F{#79C0FF}%~%f${vcs_info_msg_0_}
+%(?.%F{#F0883E}>%f.%F{#FF7B72}>%f) '
 
 alias ls='ls -G'
 alias ll='ls -la'
